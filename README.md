@@ -1,4 +1,4 @@
-## Welcome
+## Welcome You
 
 SageMaker Unified Studio is an integrated development environment that brings together familiar tools from AWS analytics and AI/ML services for data processing, SQL analytics, ML model development, and generative AI application development to help teams collaborate and bring data products to market faster.
 
