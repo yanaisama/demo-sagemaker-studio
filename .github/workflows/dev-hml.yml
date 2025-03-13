@@ -1,0 +1,34 @@
+name: Deploy to HML (Upload Assets & Create Pull Request)
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy-hml:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: sa-east-1
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials for Dev
+        run: |
+          echo "credenciais configuradas"
+
+      - name: Upload Project Files to HML S3
+        run: |
+          echo "deploy em ambiente de homologacao"
+
+      - name: Determine Semantic Version
+        id: version
+        run: echo "VERSION=1.0.$(date +%s)" >> $GITHUB_ENV
+
+      - name: Create Pull Request to HML
+        run: |
+          gh pr create -B hml -H dev --title 'Merge dev into hml' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
