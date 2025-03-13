@@ -1,0 +1,34 @@
+name: Deploy to Prod (Upload Assets & Create Pull Request)
+
+on:
+  push:
+    branches:
+      - hml
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: sa-east-1
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials for Prod
+        run: |
+          echo "credenciais configuradas"
+
+      - name: Upload Project Files to PRD S3
+        run: |
+          echo "deploy em ambiente de producao"
+
+      - name: Determine Semantic Version
+        id: version
+        run: echo "VERSION=1.0.$(date +%s)" >> $GITHUB_ENV
+
+      - name: Create Pull Request to PROD
+        run: |
+          gh pr create -B main -H hml --title 'Merge hml into main' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
